@@ -4,7 +4,7 @@
 @import "tailwindcss";
 
 body{
-  background-color: #f21924;
+  background-color: #0f4067;
   font-family: "Poppins", sans-serif;
   height: min-content;
   width: 100vw;
@@ -12,6 +12,7 @@ body{
 
 @theme{
   --font-script: Merienda;
-  --color-primary: #;
+  --color-primary: #f21924;
+  --color-secondary: #ffcc3e;
 
 }
