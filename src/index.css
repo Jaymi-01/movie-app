@@ -4,11 +4,14 @@
 @import "tailwindcss";
 
 body{
-  background-color: #2e4057;
+  background-color: #f21924;
   font-family: "Poppins", sans-serif;
+  height: min-content;
+  width: 100vw;
 }
 
 @theme{
   --font-script: Merienda;
+  --color-primary: #;
 
 }
