@@ -6,10 +6,10 @@ const Home = () => {
     const cardsInRow = 5
     const [wrapperWidth, setWrapperWidth] = useState(cardWidth * cardsInRow)
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center" style={{width: wrapperWidth}}>
         <div className="flex flex-wrap">
             <div>
-                <Card />
+                <Card cardWidth={cardWidth} />
             </div>
         </div>
     </div>
