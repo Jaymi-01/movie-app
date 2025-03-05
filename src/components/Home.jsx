@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import Card from "./Card"
+import Navigation from "./Navigation"
 
 const Home = () => {
     const [cardWidth, setCardWidth] = useState(500)
@@ -32,16 +33,20 @@ const Home = () => {
     }, [])
     
   return (
-    <div className="flex justify-center items-center" style={{width: wrapperWidth}}>
-        <div className="flex flex-wrap">
-            {movies.map((movie, i) =>(
-                <div key={i}>
-                    <Card movie={movie} cardWidth={cardWidth} />
-                </div>
-            ))}
-            
+    <>
+        <Navigation />
+        <div className="flex justify-center items-center" style={{width: wrapperWidth}}>
+            <div className="flex flex-wrap">
+                {movies.map((movie, i) =>(
+                    <div key={i}>
+                        <Card movie={movie} cardWidth={cardWidth} />
+                    </div>
+                ))}
+                
+            </div>
         </div>
-    </div>
+    </>
+    
   )
 }
 
