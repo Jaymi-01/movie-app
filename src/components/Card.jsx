@@ -10,23 +10,25 @@ const Card = ({cardWidth, movie}) => {
             <div className="flex gap-x-2 items-center">
                 <span className="text-lg">Genres:</span>
                 {genres.map((genre, i) =>{
-                    <span key={i} className="font-semibold text-primary">{genre}</span>
+                    <span key={i} className="font-semibold text-primary">
+                        {genre}
+                    </span>
                 })}
                 
             </div>
             <span className="flex gap-x-2">Original Language: 
-                <span className="mr-2 uppercase">EN</span>
+                <span className="mr-2 uppercase">{originalLanguage}</span>
             </span>
             <span className="flex gap-x-2">Release Date: 
-                <span className="mr-2 text-secondary">1972-03-04</span>
+                <span className="mr-2 text-secondary">{releaseDate}</span>
             </span>
             <p className="flex flex-col gap-y-1">
                 <span className="text-primary">Summary:</span>
-                <span className="first-letter:pl-2">Summary text</span>
+                <span className="first-letter:pl-2">{overview}</span>
             </p>
         </div>
         <img className="absolute w-[97%] h-[97%] object-cover rounded-xl opacity-50 group-hover:opacity-100 
-        transition-opacity duration-500" src="/img.png" alt="Movie Image" />
+        transition-opacity duration-500" src={image} alt="Movie Image" />
     </div>
   )
 }
