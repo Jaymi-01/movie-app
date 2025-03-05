@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Card from "./Card"
+
 const Home = () => {
     const [cardWidth, setCardWidth] = useState(500)
     const cardsInRow = 5

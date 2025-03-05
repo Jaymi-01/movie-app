@@ -21,8 +21,7 @@ const Card = () => {
                 <span className="first-letter:pl-2">Summary text</span>
             </p>
         </div>
-        <img className="object-cover rounded-xl opacity-50 group-hover:opacity-100 
-        transition-opacity duration-500" src="/godfather.jpg" alt="Movie Image" />
+        <img src="/img.png" alt="Movie Image" />
     </div>
   )
 }
