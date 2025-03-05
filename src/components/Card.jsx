@@ -9,11 +9,11 @@ const Card = ({cardWidth, movie}) => {
             <h1 className="text-4xl">{title}</h1>
             <div className="flex gap-x-2 items-center">
                 <span className="text-lg">Genres:</span>
-                {genres.map((genre, i) =>{
+                {genres.map((genre, i) =>(
                     <span key={i} className="font-semibold text-primary">
                         {genre}
                     </span>
-                })}
+                ))}
                 
             </div>
             <span className="flex gap-x-2">Original Language: 
