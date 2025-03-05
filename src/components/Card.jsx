@@ -1,11 +1,18 @@
+import { useState } from "react"
+import { motion } from "framer-motion"
 const Card = ({cardWidth, movie}) => {
     const {title, genres, originalLanguage, releaseDate, overview, image} = movie
+    const [showDesc, setShowDesc] = useState(false)
   return (
     <div style={{width: cardWidth}} className="h-[650px] relative flex justify-center 
-    items-center shrink-0 p-2 bg-gray-600 group">
-        <div className="w-[97%] h-[97%] m-auto text-white 
+    items-center shrink-0 p-2 group">
+        <motion.div 
+        initial={{opacity: 0}}
+        animate={{opacity: showDesc ? 1 : 0 }}
+        transition={{duration: 0.05}}
+        onClick={() => setShowDesc(!showDesc)} className="w-[97%] h-[97%] m-auto text-white 
         absolute rounded-lg bg-black/50 flex flex-col justify-center 
-        gap-y-2 p-10 cursor-pointer">
+        gap-y-2 p-10 cursor-pointer backdrop-blur-2xl">
             <h1 className="text-4xl">{title}</h1>
             <div className="flex gap-x-2 items-center">
                 <span className="text-lg">Genres:</span>
@@ -26,9 +33,9 @@ const Card = ({cardWidth, movie}) => {
                 <span className="text-primary">Summary:</span>
                 <span className="first-letter:pl-2">{overview}</span>
             </p>
-        </div>
+        </motion.div>
         <img className="absolute w-[97%] h-[97%] object-cover rounded-xl opacity-50 group-hover:opacity-100 
-        transition-opacity duration-500" src={image} alt="Movie Image" />
+        transition-opacity duration-500 -z-10" src={image} alt="Movie Image" />
     </div>
   )
 }
