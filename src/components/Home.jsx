@@ -9,7 +9,7 @@ const Home = () => {
 
     useEffect(() => {
         const getMovies = async () => {
-            const url = 'https://tvshow.p.rapidapi.com/Serie/Popular?Page=1&Language=en-US';
+            const url = 'https://tvshow.p.rapidapi.com/Movie/NowPlaying?Page=1&Language=en-US&Adult=true';
             const options = {
                 method: 'GET',
                 headers: {
@@ -21,6 +21,7 @@ const Home = () => {
             try {
                 const response = await fetch(url, options);
                 const result = await response.json();
+                setMovies(result)
                 console.log(result);
             } catch (error) {
                 console.error(error);
@@ -33,9 +34,12 @@ const Home = () => {
   return (
     <div className="flex justify-center items-center" style={{width: wrapperWidth}}>
         <div className="flex flex-wrap">
-            <div>
-                <Card cardWidth={cardWidth} />
-            </div>
+            {movies.map((movie, i) =>(
+                <div key={i}>
+                    <Card movie={movie} cardWidth={cardWidth} />
+                </div>
+            ))}
+            
         </div>
     </div>
   )
