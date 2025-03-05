@@ -1,5 +1,5 @@
 const Card = ({cardWidth, movie}) => {
-    const {title, image, genres, originalLanguage, releaseDate, overview} = movie
+    const {title, genres, originalLanguage, releaseDate, overview, image} = movie
   return (
     <div style={{width: cardWidth}} className="h-[650px] relative flex justify-center 
     items-center shrink-0 p-2 bg-gray-600 group">
