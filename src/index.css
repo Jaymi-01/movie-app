@@ -6,8 +6,6 @@
 body{
   background-color: #0f4067;
   font-family: "Poppins", sans-serif;
-  height: min-content;
-  width: 100vw;
 }
 
 @theme{
