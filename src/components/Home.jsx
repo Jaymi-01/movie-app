@@ -7,10 +7,12 @@ const Home = () => {
     const cardsInRow = 5
     const [wrapperWidth, setWrapperWidth] = useState(cardWidth * cardsInRow)
     const [movies, setMovies] =useState([])
+    const [page, setPage] = useState(1)
+    const [group, setGroup] = useState('Popular')
 
     useEffect(() => {
         const getMovies = async () => {
-            const url = 'https://tvshow.p.rapidapi.com/Movie/NowPlaying?Page=1&Language=en-US&Adult=true';
+            const url = `https://tvshow.p.rapidapi.com/Movie/${group}?Page=${page}&Language=en-US&Adult=true`;
             const options = {
                 method: 'GET',
                 headers: {
