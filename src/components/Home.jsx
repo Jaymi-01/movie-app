@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import Card from "./Card"
 import Navigation from "./Navigation"
+import {useMotionValue, useTransform, motion, useSpring} from 'framer-motion'
 
 const Home = () => {
     const [cardWidth, setCardWidth] = useState(500)
@@ -9,6 +10,38 @@ const Home = () => {
     const [movies, setMovies] =useState([])
     const [page, setPage] = useState(1)
     const [group, setGroup] = useState('Popular')
+    const [mousePos, setMousePos] = useState({left: 0, top: 0, width: 0, height: 0,})
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight)
+    const cardsRef = useRef(null)
+
+    const getMousePositions = (e, referenceElement) => {
+        const positions = {
+            x: e.clientX,
+            y: e.clientY,
+        }
+        const offset = {
+            left: positions.x,
+            top: positions.y,
+            width: referenceElement.clientWidth,
+            height: referenceElement.clientHeight,
+        }
+
+        setMousePos(offset)
+    }
+
+    const x = useMotionValue(0)
+    const y = useMotionValue(0)
+
+    x.set(mousePos.left)
+    y.set(mousePos.top)
+
+    const xSpring = useSpring(x, {stiffness: 10, damping: 10})
+    const ySpring = useSpring(y, {stiffness: 10, damping: 10})
+
+    const translateX = useTransform(xSpring, [0, windowWidth], [0, -mousePos.width + windowWidth])
+    const translateY = useTransform(ySpring, [0, windowHeight], [0, -mousePos.height + windowHeight])
+
     const apiKey = import.meta.env.VITE_API_KEY
     const baseUrl = import.meta.env.VITE_BASE_URL
 
@@ -35,20 +68,31 @@ const Home = () => {
 
         getMovies()
     }, [page, group])
+
+    window.addEventListener('resize', () => {
+        setWindowWidth(window.innerWidth)
+        setWindowHeight(window.innerHeight)
+    })
     
   return (
     <>
         <Navigation page={page} setPage={setPage} setGroup={setGroup} />
-        <div className="flex justify-center items-center" style={{width: wrapperWidth}}>
+        <motion.div className="flex justify-center items-center fixed top-0 left-0 overflow-hidden" style={{width: wrapperWidth, translateX, translateY}} 
+        ref={cardsRef} 
+        onMouseMove={(e) => getMousePositions(e, cardsRef.current)}>
             <div className="flex flex-wrap">
                 {movies.map((movie, i) =>(
-                    <div key={i}>
+                    <motion.div
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    transition={{delay: i * 0.05}}
+                    key={i}>
                         <Card movie={movie} cardWidth={cardWidth} />
-                    </div>
+                    </motion.div>
                 ))}
                 
             </div>
-        </div>
+        </motion.div>
     </>
     
   )
