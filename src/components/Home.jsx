@@ -9,14 +9,16 @@ const Home = () => {
     const [movies, setMovies] =useState([])
     const [page, setPage] = useState(1)
     const [group, setGroup] = useState('Popular')
+    const apiKey = import.meta.env.VITE_API_KEY
+    const baseUrl = import.meta.env.VITE_BASE_URL
 
     useEffect(() => {
         const getMovies = async () => {
-            const url = `https://tvshow.p.rapidapi.com/Movie/${group}?Page=${page}&Language=en-US&Adult=true`;
+            const url = `${baseUrl}/${group}?Page=${page}&Language=en-US&Adult=true`;
             const options = {
                 method: 'GET',
                 headers: {
-                    'x-rapidapi-key': 'eba2e58da8msh782801184884a31p1f01dfjsn65aa7ffae0a0',
+                    'x-rapidapi-key': apiKey,
                     'x-rapidapi-host': 'tvshow.p.rapidapi.com'
                 }
             };
@@ -32,11 +34,11 @@ const Home = () => {
         }
 
         getMovies()
-    }, [])
+    }, [page, group])
     
   return (
     <>
-        <Navigation />
+        <Navigation page={page} setPage={setPage} setGroup={setGroup} />
         <div className="flex justify-center items-center" style={{width: wrapperWidth}}>
             <div className="flex flex-wrap">
                 {movies.map((movie, i) =>(

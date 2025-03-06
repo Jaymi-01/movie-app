@@ -1,5 +1,5 @@
 import { IoMdArrowDropleftCircle,  IoMdArrowDroprightCircle} from "react-icons/io";
-const Navigation = () => {
+const Navigation = (page, setPage) => {
   return (
     <div className="relative z-10">
         <div className="fixed bottom-5 left-5 flex items-center gap-x-2 text-2xl 
