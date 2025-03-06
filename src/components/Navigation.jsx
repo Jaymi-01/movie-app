@@ -20,7 +20,7 @@ const Navigation = ({page, setPage, setGroup}) => {
         hover:bg-gray-200">
             <option value="TopRated">Top Rated</option>
             <option value="Popular">Popular</option>
-            <option value="Upcoming">Upcoming</option>
+            <option value="UpComing">Upcoming</option>
             <option value="Discover">Discover</option>
         </select>
     </div>
