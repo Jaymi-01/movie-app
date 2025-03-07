@@ -4,7 +4,7 @@ const Card = ({cardWidth, movie}) => {
     const {title, genres, originalLanguage, releaseDate, overview, image} = movie
     const [showDesc, setShowDesc] = useState(false)
   return (
-    <div style={{width: cardWidth}} className="h-[650px] relative flex justify-center 
+    <div style={{width: cardWidth}} className="h-[650px] lg:h-[550px] sm:h-[450px] relative flex justify-center 
     items-center shrink-0 p-2 group">
         <motion.div 
         initial={{opacity: 0}}
@@ -14,7 +14,7 @@ const Card = ({cardWidth, movie}) => {
         absolute rounded-lg bg-black/50 flex flex-col justify-center 
         gap-y-2 p-10 cursor-pointer backdrop-blur-2xl">
             <h1 className="text-4xl">{title}</h1>
-            <div className="flex gap-x-2 items-center">
+            <div className="flex gap-x-2 items-center flex-wrap lg:w-60">
                 <span className="text-lg">Genres:</span>
                 {genres.map((genre, i) =>(
                     <span key={i} className="font-semibold text-primary">
@@ -31,7 +31,7 @@ const Card = ({cardWidth, movie}) => {
             </span>
             <p className="flex flex-col gap-y-1">
                 <span className="text-primary">Summary:</span>
-                <span className="first-letter:pl-2">{overview}</span>
+                <span className="first-letter:pl-2 lg:hidden">{overview}</span>
             </p>
         </motion.div>
         <img className="absolute w-[97%] h-[97%] object-cover rounded-xl opacity-50 group-hover:opacity-100 

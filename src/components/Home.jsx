@@ -82,10 +82,33 @@ const Home = () => {
         getMovies()
     }, [page, group])
 
-    window.addEventListener('resize', () => {
-        setWindowWidth(window.innerWidth)
-        setWindowHeight(window.innerHeight)
-    })
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth)
+            setWindowHeight(window.innerHeight)
+
+            let newCardWidth = 500
+            if (windowWidth < 1280) newCardWidth = 400
+            if (windowWidth < 768) newCardWidth = 350
+
+            setCardWidth(newCardWidth)
+            setWrapperWidth(newCardWidth * cardsInRow)
+
+            x.set(mousePos.left)
+            y.set(mousePos.top)
+            
+        }
+
+        window.addEventListener('resize', handleResize)
+        handleResize()
+
+        return () =>  window.removeEventListener('resize', handleResize)
+    }, [])
+
+    useEffect(() => {
+        x.set(0)
+        y.set(0)
+    }, [windowWidth, windowHeight])
     
   return (
     <>
