@@ -14,11 +14,11 @@ body{
   --color-primary: #f21924;
   --color-secondary: #ffcc3e;
   --color-loader: #240000;
-  screens: {
-    xl: {max: '1279px'};
-    lg: {max: '1023px'};
-    md: {max: '767px'};
-    sm: {max: '639px'};
-  }
+  /* screens: {
+    xl: {max: '1279px'},
+    lg: {max: '1023px'},
+    md: {max: '767px'},
+    sm: {max: '639px'},
+  } */
 
 }
