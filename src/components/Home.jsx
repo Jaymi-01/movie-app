@@ -13,6 +13,7 @@ const Home = () => {
     const [mousePos, setMousePos] = useState({left: 0, top: 0, width: 0, height: 0,})
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
     const [windowHeight, setWindowHeight] = useState(window.innerHeight)
+    const [loading, setLoading] = useState(false)
     const cardsRef = useRef(null)
 
     const getMousePositions = (e, referenceElement) => {
@@ -45,15 +46,21 @@ const Home = () => {
     const apiKey = import.meta.env.VITE_API_KEY
     const baseUrl = import.meta.env.VITE_BASE_URL
 
+    const abortControllerRef = useRef(null)
+
     useEffect(() => {
         const getMovies = async () => {
+            abortControllerRef.current != null && abortControllerRef.current.abort()
+            abortControllerRef.current = new AbortController()
+            setLoading(true)
             const url = `${baseUrl}/${group}?Page=${page}&Language=en-US&Adult=true`;
             const options = {
                 method: 'GET',
                 headers: {
                     'x-rapidapi-key': apiKey,
                     'x-rapidapi-host': 'tvshow.p.rapidapi.com'
-                }
+                },
+                signal: abortControllerRef.current.signal != null && abortControllerRef.current.signal
             };
 
             try {
@@ -62,7 +69,13 @@ const Home = () => {
                 setMovies(result)
                 console.log(result);
             } catch (error) {
+                if (error.name === 'AbortError') {
+                    console.log('Fetch aborted')
+                    return;
+                }
                 console.error(error);
+            }   finally {
+                setLoading(false)
             }
         }
 
@@ -77,22 +90,31 @@ const Home = () => {
   return (
     <>
         <Navigation page={page} setPage={setPage} setGroup={setGroup} />
-        <motion.div className="flex justify-center items-center fixed top-0 left-0 overflow-hidden" style={{width: wrapperWidth, translateX, translateY}} 
-        ref={cardsRef} 
-        onMouseMove={(e) => getMousePositions(e, cardsRef.current)}>
-            <div className="flex flex-wrap">
+        {loading ? (
+            <div className="h-screen w-screen flex justify-center items-center bg-loader">
+                <h1 className="text-white text-4xl uppercase">Loading...</h1>
+            </div>
+        ) : (
+            <motion.div className="flex justify-center items-center fixed top-0 left-0 overflow-hidden" 
+            style={{width: wrapperWidth, translateX, translateY}} 
+            ref={cardsRef} 
+            onMouseMove={(e) => getMousePositions(e, cardsRef.current)}>
+                <div className="flex flex-wrap">
                 {movies.map((movie, i) =>(
                     <motion.div
                     initial={{opacity: 0}}
-                    animate={{opacity: 1}}
+                    animate={{opacity: loading ? 0 : 1}}
                     transition={{delay: i * 0.05}}
                     key={i}>
                         <Card movie={movie} cardWidth={cardWidth} />
                     </motion.div>
                 ))}
                 
-            </div>
-        </motion.div>
+                </div>
+            </motion.div>
+        )}
+        
+        
     </>
     
   )
